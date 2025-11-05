@@ -4,6 +4,7 @@
  */
 package servlets;
 
+import clases.operacionesREST;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,10 +32,10 @@ public class login extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
             
-            OperacionSQL operacion = new OperacionSQL();
-            boolean esValido = operacion.validarUsuario(usuario, password);
+            operacionesREST op = new operacionesREST();
+            int respuesta =  op.validarUsuario(usuario,password);
             
-            if (esValido) {
+            if (respuesta == 200) {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuario);
                 response.sendRedirect("menu.jsp");
