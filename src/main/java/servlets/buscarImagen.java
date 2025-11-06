@@ -10,9 +10,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import clases.Imagen;
-import clases.Imagen;
 import clases.operacionesREST;
+import java.util.ArrayList;
 
+/**
+ * Servlet que procesa la búsqueda de imágenes y delega la presentación a un JSP
+ */
 /**
  * Servlet que procesa la búsqueda de imágenes y delega la presentación a un JSP
  */
@@ -23,7 +26,7 @@ public class buscarImagen extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            //Controlamos si hay sesión
+            // Controlamos si hay sesión
             HttpSession session = request.getSession(false);
             if (session == null || session.getAttribute("usuario") == null) {
                 response.sendRedirect("login.jsp");
@@ -37,31 +40,47 @@ public class buscarImagen extends HttpServlet {
             String autor = request.getParameter("autor");
             String fechaCreacion = request.getParameter("fechaCreacion");
 
-            //Inicializar a null si el parámetro está vacio (para mostrar todos los resultados)
-            //Trim para evitar espacios entre medio
-            titulo = (titulo != null && titulo.trim().isEmpty()) ? null : titulo;
-            palabrasClave = (palabrasClave != null && palabrasClave.trim().isEmpty()) ? null : palabrasClave;
-            autor = (autor != null && autor.trim().isEmpty()) ? null : autor;
-            fechaCreacion = (fechaCreacion != null && fechaCreacion.trim().isEmpty()) ? null : fechaCreacion;
+            // Inicializar a null si el parámetro está vacío (para mostrar todos los resultados)
+            // Trim para evitar espacios entre medio
+            titulo = (titulo != null && !titulo.trim().isEmpty()) ? titulo.trim() : null;
+            palabrasClave = (palabrasClave != null && !palabrasClave.trim().isEmpty()) ? palabrasClave.trim() : null;
+            autor = (autor != null && !autor.trim().isEmpty()) ? autor.trim() : null;
+            fechaCreacion = (fechaCreacion != null && !fechaCreacion.trim().isEmpty()) ? fechaCreacion.trim() : null;
 
-            //Realizar consulta SQL
+            // Realizar consulta REST
             operacionesREST op = new operacionesREST();
-            
-            List<Imagen> resultados;
+            List<Imagen> resultados = new ArrayList<>();
+
+            // Si no hay ningún parámetro de búsqueda, traer todas las imágenes del usuario
             if (titulo == null && palabrasClave == null && autor == null && fechaCreacion == null) {
-                resultados = op.imagenesPorCreador(usuarioLogueado);
+                resultados = op.buscarPorCreador(usuarioLogueado);
             } else {
-                resultados = null;
-                //resultados = op.buscarImagenes(titulo, palabrasClave, autor, fechaCreacion, usuarioLogueado);
+                // Si hay parámetros, hacer búsquedas específicas
+
+                // Búsqueda por título
+                if (titulo != null) {
+                    resultados = op.buscarPorTitulo(titulo, usuarioLogueado);
+                } // Búsqueda por palabras clave
+                else if (palabrasClave != null) {
+                    resultados = op.buscarPorKeywords(palabrasClave, usuarioLogueado);
+                } // Búsqueda por autor
+                else if (autor != null) {
+                    resultados = op.buscarPorAutor(autor, usuarioLogueado);
+                } // Búsqueda por fecha de creación
+                else if (fechaCreacion != null) {
+                    resultados = op.buscarPorFecha(fechaCreacion, usuarioLogueado);
+                }
             }
 
-            //Pasar resultados al JSP
+            // Pasar resultados al JSP
             request.setAttribute("resultados", resultados);
             request.getRequestDispatcher("resultadoBusqueda.jsp").forward(request, response);
+
         } catch (Exception e) {
             // Capturamos cualquier excepción inesperada
             System.err.println("Error en buscarImagen: " + e.getMessage());
-            response.sendRedirect("error.jsp?from=buscarImagen.jsp");
+            e.printStackTrace();
+            response.sendRedirect("error.jsp?from=buscarImagen");
         }
     }
 
@@ -71,11 +90,8 @@ public class buscarImagen extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("usuario") == null) {
             response.sendRedirect("login.jsp");
-
         } else {
             response.sendRedirect("menu.jsp");
         }
-
     }
-
 }

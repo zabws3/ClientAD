@@ -127,8 +127,8 @@
             <label for="fechaCreacion">Fecha de Creación:</label>
             <input type="date" id="fechaCreacion" name="fechaCreacion" required>
 
-            <label for="archivoImagen">Archivo de Imagen:</label>
-            <input type="file" id="archivoImagen" name="archivoImagen" required accept=".jpg,.jpeg,.png,.gif,.jpeg,.webp">
+            <label for="archivoImagen">Archivo de Imagen: (No habilitado)</label>
+            <!-- <input type="file" id="archivoImagen" name="archivoImagen" required accept=".jpg,.jpeg,.png,.gif,.jpeg,.webp"> -->
 
             <div class="botones">
                 <button type="submit">Registrar Imagen</button>

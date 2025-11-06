@@ -11,39 +11,39 @@ package clases;
 public class Imagen {
 
     private int id;
-    private String titulo;
-    private String descripcion;
+    private String title;
+    private String description;
     private String keywords;
-    private String autor;
-    private String creador;
-    private String fechaCreacion;
-    private String fechaAlta;
-    private String nombreFichero;
+    private String author;
+    private String creator;
+    private String capture_date;
+    private String storage_date;
+    private String filename;
 
     public Imagen(int id, String titulo, String descripcion, String keywords,
             String autor, String creador, String fechaCreacion, String fechaAlta, String nombreFichero) {
         this.id = id;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
+        this.title = titulo;
+        this.description = descripcion;
         this.keywords = keywords;
-        this.autor = autor;
-        this.creador = creador;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaAlta = fechaAlta;
-        this.nombreFichero = nombreFichero;
+        this.author = autor;
+        this.creator = creador;
+        this.capture_date = fechaCreacion;
+        this.storage_date = fechaAlta;
+        this.filename = nombreFichero;
     }
 
     // Constructor sin id (inserciones)
     public Imagen(String titulo, String descripcion, String keywords,
             String autor, String creador, String fechaCreacion, String fechaAlta, String nombreFichero) {
-        this.titulo = titulo;
-        this.descripcion = descripcion;
+        this.title = titulo;
+        this.description = descripcion;
         this.keywords = keywords;
-        this.autor = autor;
-        this.creador = creador;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaAlta = fechaAlta;
-        this.nombreFichero = nombreFichero;
+        this.author = autor;
+        this.creator = creador;
+        this.capture_date = fechaCreacion;
+        this.storage_date = fechaAlta;
+        this.filename = nombreFichero;
     }
 
     // Getters y setters
@@ -56,19 +56,19 @@ public class Imagen {
     }
 
     public String getTitulo() {
-        return titulo;
+        return title;
     }
 
     public void setTitulo(String titulo) {
-        this.titulo = titulo;
+        this.title = titulo;
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return description;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        this.description = descripcion;
     }
 
     public String getKeywords() {
@@ -80,43 +80,43 @@ public class Imagen {
     }
 
     public String getAutor() {
-        return autor;
+        return author;
     }
 
     public void setAutor(String autor) {
-        this.autor = autor;
+        this.author = autor;
     }
 
     public String getCreador() {
-        return creador;
+        return creator;
     }
 
     public void setCreador(String creador) {
-        this.creador = creador;
+        this.creator = creador;
     }
 
     public String getFechaCreacion() {
-        return fechaCreacion;
+        return capture_date;
     }
 
     public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+        this.capture_date = fechaCreacion;
     }
 
     public String getFechaAlta() {
-        return fechaAlta;
+        return storage_date;
     }
 
     public void setFechaAlta(String fechaAlta) {
-        this.fechaAlta = fechaAlta;
+        this.storage_date = fechaAlta;
     }
 
     public String getNombreFichero() {
-        return nombreFichero;
+        return filename;
     }
 
     public void setNombreFichero(String nombreFichero) {
-        this.nombreFichero = nombreFichero;
+        this.filename = nombreFichero;
     }
 }
 

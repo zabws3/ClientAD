@@ -20,7 +20,7 @@
     <title>Modificar Imagen</title>
     <style>
         body { 
-            font-family: Arial, sans-serif; 
+            font-family: Arial, sans-serif;
             background-color: #fafafa; 
             margin: 40px; 
         }

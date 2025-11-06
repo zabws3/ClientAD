@@ -124,12 +124,8 @@
                 <% for (Imagen img : resultados) { %>
                 <tr>
                     <td><%= img.getId() %></td>
-                    <td>
-                        <% if (img.getNombreFichero() != null && !img.getNombreFichero().isEmpty()) { %>
-                        <a href="#" onclick="window.open('<%= request.getContextPath() %>/uploads/<%= img.getNombreFichero() %>', '_blank', 'width = 600, height = 400'); return false;">Ver foto</a>
-                        <% } else { %>
+                    <td>    
                         Sin imagen
-                        <% } %>
                     </td>
                     <td><%= img.getTitulo() %></td>
                     <td><%= img.getDescripcion() %></td>

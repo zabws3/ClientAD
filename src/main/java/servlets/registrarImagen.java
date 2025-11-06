@@ -1,13 +1,8 @@
-package clases;
+package servlets;
 
-import clases.operacionesREST;
 import clases.Imagen;
-import java.io.File;
-import java.io.FileOutputStream;
+import clases.operacionesREST;
 import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,8 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import java.util.Arrays;
-import java.util.List;
 
 @WebServlet(name = "registrarImagen", urlPatterns = {"/registrarImagen"})
 @MultipartConfig
@@ -52,9 +45,9 @@ public class registrarImagen extends HttpServlet {
             if (request.getSession(false) != null) {
                 creador = (String) request.getSession().getAttribute("usuario");
             }
-
+            //SALTAMOS PARTE DE SUBIDA DE FICHERO AL SISTEMA
+/*
             // Directorio donde se guardan las fotos
-            String destino = "/var/webapp/uploads"; 
 
             File directorio = new File(destino);
             if (!directorio.exists()) {
@@ -82,7 +75,7 @@ public class registrarImagen extends HttpServlet {
                 response.sendRedirect("error?from=registrarImagen.jsp");
                 return;
             }
-/*
+
             //Creación nombre con timestamp
             long timestamp = System.currentTimeMillis();
             String fileNameUnico = timestamp + "_" + creador + "_" + fileName;
@@ -101,12 +94,11 @@ public class registrarImagen extends HttpServlet {
             // Preparar datos para base de datos
             operacionesREST op = new operacionesREST();
             
-
-
             Imagen imagen = new Imagen(titulo, descripcion, palabrasClave, autor, creador, fechaCreacion, null, null);
-            boolean registrado = true; //REVISAR 
+            int registrado = op.registrarImagen(imagen);
+            
 
-            if (registrado) {
+            if (registrado == 200) {
                 response.sendRedirect("exito.jsp?mensaje=Imagen+registrada+correctamente&from=registrarImagen.jsp");
 
             } else {
